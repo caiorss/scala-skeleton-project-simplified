@@ -1,0 +1,11 @@
+bin/*
+*.jar
+*.tar.gz
+*.tgz
+*.gz
+*.rar 
+*.bin
+*.exe
+*.so
+*.dll
+*.class
