@@ -10,3 +10,9 @@ bin/*
 *.dll
 *.class
 /bin/
+idea/*
+docs/*
+target/*
+project/*
+bin/*
+.idea/*
