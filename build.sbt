@@ -1,5 +1,5 @@
 // Scala runtime and distribution version
-scalaVersion := "2.12.0"
+scalaVersion := "2.12.4"
 
 // import sbt.project
 
