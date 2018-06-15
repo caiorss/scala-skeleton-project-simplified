@@ -32,6 +32,7 @@ final class UserInterface extends javax.swing.JFrame {
     frame1.setVisible(true)
     frame1.setSize(400, 500)
     frame1.setLocation(200, 200)
+    frame1.setTitle("Frame 1 test")
   }
 
   def increment() = {
@@ -43,6 +44,8 @@ final class UserInterface extends javax.swing.JFrame {
     counter = counter - 1 
     display.setText("counter = " + counter)
   }
-  
+
+  def getCounter() =
+    counter
   
 }
