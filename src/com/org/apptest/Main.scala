@@ -1,5 +1,19 @@
 package com.org.apptest
 
+
+class GroovyConsole{
+  import groovy.ui.Console
+  private val console = new Console()
+  def setVariable(name: String, obj: Any) = {
+    console.setVariable(name, obj)
+    this
+  }
+  def run() = {
+    console.run()
+    this
+  }
+}
+
 object Main {
   
   val gui = new UserInterface()
