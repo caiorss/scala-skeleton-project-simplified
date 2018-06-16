@@ -5,7 +5,7 @@ scalaVersion := "2.12.4"
 
 //============ Application Specific Settings ===============
 // Application/Program name 
-// name                 := apptest 
+name                 := "myApplication"
 // Application version 
 version              := "1.0"
 // Project description
@@ -29,8 +29,6 @@ libraryDependencies ++= Seq(
   // <groupID> %% <artifactID> % <version>
 )
 
-
-
 //============= Overrides project layout =====================================
 //   Original Scala Layout      ---  This layout  (Scala-only project)
 //   ./src/main/*.files.scala         src/*.scala 
@@ -46,3 +44,42 @@ scalaSource in Compile := { (baseDirectory in Compile)(_ / "src") }.value
 // Move tests from src/tests to ./test 
 scalaSource in Test := { (baseDirectory in Test)(_ / "test") }.value
 //
+
+
+//============= Customs SBT tasks ===================== //
+//
+//
+
+/** Copy Uber jar to current directory (./)
+  * Usage: $ sbt copyUber 
+  * 
+  * References:
+  * + https://stackoverflow.com/questions/47872758/how-can-i-make-a-task-depend-on-another-task
+  * + https://www.scala-sbt.org/1.x/docs/Migrating-from-sbt-013x.html#Migrating+from+sbt+0.12+style
+  * + http://blog.bstpierre.org/writing-simple-sbt-task
+  * + https://www.scala-sbt.org/1.0/docs/Custom-Settings.html
+  * 
+  *******************************************************************/
+val copyUber = TaskKey[Unit]("copyUber", "Run produced uber jar")
+copyUber := {
+  import java.io.File
+  val inpFile = new File(assembly.value.getPath)
+  // val outFile = new File(inpFile.getName)
+  val outFile = name.value + "-uber.jar"
+  val inch = java.nio.channels.Channels.newChannel(
+    new java.io.FileInputStream(inpFile))
+  val fos = new java.io.FileOutputStream(outFile)
+  fos.getChannel().transferFrom(inch, 0, java.lang.Long.MAX_VALUE)
+    inch.close()
+  println("Created  = " + outFile)
+}
+
+
+// println("End of task copyUber")
+//}
+
+val dummyTask = TaskKey[Unit]("dummy", "Dummy tasks testing")
+dummyTask := {
+  println("I am a dummy task")
+}
+
