@@ -1,0 +1,132 @@
+* Sample Scala Project with Simplified Structure 
+** What is it
+
+This program is Java Swing Window and an embedded Groovy console where
+the user can run scripts and manipulate the window interactively. 
+
+The purpose of the project is to demonstrate how to create a sample
+scala project with simplified structure not following Maven
+boilerplate layout and making the assumptions that it is Scala-only,
+that there is no java source code and there is only one base package,
+aka namespace, which is omited.
+
+In a standard Scala project the directory layout of the project would
+be like as shown in the schema below with lost of nested directories
+and the sub directories /com/org/apptest for the package com.org.apptest: 
+
+#+BEGIN_SRC text 
+src/
+  main/
+   scala/
+     com/org/apptest/
+                Main.scala 
+                UserInterface.scala 
+
+   java/        
+#+END_SRC
+
+This project simplifies the directory structure to: 
+
+#+BEGIN_SRC text 
+src/
+   Main.scala 
+   UserInterface.scala 
+#+END_SRC
+
+This was tested sucessfully with jetBrains's InteliJ Idea and Scala's
+sbt tool. 
+
+** Build, Running and Deploying 
+
+To build the project go to its root directory and run: 
+
+#+BEGIN_SRC sh 
+$ sbt run
+[info] Loading settings from idea.sbt,plugins.sbt ...
+[info] Loading global plugins from /home/archbox/.sbt/1.0/plugins
+[info] Loading settings from assembly.sbt ...
+[info] Loading project definition from /home/archbox/workspace2/sample-project2/project
+[info] Loading settings from build.sbt ...
+[info] Set current project to myApplication (in build file:/home/archbox/workspace2/sample-project2/)
+[info] Running com.org.apptest.Main 
+Initializing groovy Console
+
+#+END_SRC
+
+To create a standalone program, uber jar with all dependencies bundled
+run: 
+
+#+BEGIN_SRC sh
+$ sbt assembly
+[info] Loading settings from idea.sbt,plugins.sbt ...
+[info] Loading global plugins from /home/archbox/.sbt/1.0/plugins
+[info] Loading settings from assembly.sbt ...
+[info] Loading project definition from /home/archbox/workspace2/sample-project2/project
+[info] Loading settings from build.sbt ...
+[info] Set current project to myApplication (in build file:/home/archbox/workspace2/sample-project2/)
+[info] Including from cache: scala-library.jar
+[info] Including from cache: groovy-all-2.4.15.jar
+[info] Checking every *.class/*.jar file's SHA-1.
+[info] Merging files...
+[warn] Merging 'META-INF/INDEX.LIST' with strategy 'discard'
+[warn] Merging 'META-INF/MANIFEST.MF' with strategy 'discard'
+[warn] Strategy 'discard' was applied to 2 files
+[info] SHA-1: d0b553caeeec05b9a8c4a3e1222864c1a75a1277
+[info] Packaging /home/archbox/workspace2/sample-project2/target/myApplication-assembly-1.0.jar ...
+[info] Done packaging.
+[success] Total time: 4 s, completed Jun 16, 2018 7:44:31 PM
+
+
+#+END_SRC
+
+To create the uber jar and copy it to the project's root directory
+run: 
+
+#+BEGIN_SRC sh 
+$ sbt copyUber
+[info] Loading settings from idea.sbt,plugins.sbt ...
+[info] Loading global plugins from /home/archbox/.sbt/1.0/plugins
+[info] Loading settings from assembly.sbt ...
+[info] Loading project definition from /home/archbox/workspace2/sample-project2/project
+[info] Loading settings from build.sbt ...
+[info] Set current project to myApplication (in build file:/home/archbox/workspace2/sample-project2/)
+[info] Including from cache: scala-library.jar
+[info] Including from cache: groovy-all-2.4.15.jar
+[info] Checking every *.class/*.jar file's SHA-1.
+[info] Merging files...
+[warn] Merging 'META-INF/INDEX.LIST' with strategy 'discard'
+[warn] Merging 'META-INF/MANIFEST.MF' with strategy 'discard'
+[warn] Strategy 'discard' was applied to 2 files
+[info] Assembly up to date: /home/archbox/workspace2/sample-project2/target/myApplication-assembly-1.0.jar
+Created  = myApplication-uber.jar
+[success] Total time: 1 s, completed Jun 16, 2018 7:45:17 PM
+
+
+#+END_SRC
+
+
+The created uber jar, namely myApplication-uber.jar can be run by just
+double clicking on it or running the command: 
+
+#+BEGIN_SRC sh 
+  $ java -jar myApplication-uber.jar 
+  Initializing groovy Console
+  i = 1
+  i = 2
+  i = 3
+  i = 4
+  i = 5
+  i = 6
+  i = 7
+  i = 8
+  i = 9
+  i = 10
+   was clicked
+   was clicked
+ ... ... .... 
+
+#+END_SRC
+
+Screnshot: 
+
+[[file:images/screenshot1.png][file:images/screenshot1.png]]
