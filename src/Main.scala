@@ -34,6 +34,7 @@ object Main {
     gui.getContentPane().setBackground(java.awt.Color.WHITE)
     gui.setTitle("Graphical user interface")
     // gui.setResizable(false)
+    gui.increment()
 
     println("Initializing groovy Console")
 
