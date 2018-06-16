@@ -4,12 +4,23 @@ package com.org.apptest
 class GroovyConsole{
   import groovy.ui.Console
   private val console = new Console()
+  private var msg: String = ""
+
+  def get() = console
+
   def setVariable(name: String, obj: Any) = {
     console.setVariable(name, obj)
     this
   }
+  def setUserMessage(text: String) = {
+    msg = text
+    this
+  }
   def run() = {
     console.run()
+    javax.swing.SwingUtilities.invokeLater{ () =>
+      console.getInputEditor().getTextEditor().setText(msg)
+    }
     this
   }
 }
