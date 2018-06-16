@@ -38,11 +38,16 @@ object Main {
     println("Initializing groovy Console")
 
     val cs = new GroovyConsole()
-    cs.setVariable("gui", gui)
+      .setVariable("gui", gui)
       .setVariable("pi", 3.1415)
-      .run()
+      .setUserMessage(
+        """
+          |// Enter (Ctrl + R) to evaluate the script
+          |gui.getContentPane().setBackground(java.awt.Color.CYAN);
+          |gui.setTitle("It worked pretty well");
+        """.stripMargin)
 
-    println("Hello world - Scala project.")
+    cs.run()
 
     for(i <- 1 to 10) println("i = " + i)
 
